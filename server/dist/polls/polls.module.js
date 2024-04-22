@@ -10,13 +10,16 @@ exports.pollsModule = void 0;
 const common_1 = require("@nestjs/common");
 const config_1 = require("@nestjs/config");
 const polls_controller_1 = require("./polls.controller");
+const polls_service_1 = require("./polls.service");
+const modules_config_1 = require("../modules.config");
+const polls_repository_1 = require("./polls.repository");
 let pollsModule = class pollsModule {
 };
 pollsModule = __decorate([
     (0, common_1.Module)({
-        imports: [config_1.ConfigModule],
+        imports: [config_1.ConfigModule, modules_config_1.redisModule],
         controllers: [polls_controller_1.PollsController],
-        providers: [],
+        providers: [polls_service_1.PollService, polls_repository_1.PollsRepository],
         exports: []
     })
 ], pollsModule);

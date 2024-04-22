@@ -6,21 +6,27 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AppModule = void 0;
+exports.PollService = void 0;
 const common_1 = require("@nestjs/common");
-const config_1 = require("@nestjs/config");
-const polls_module_1 = require("./polls/polls.module");
-const polls_service_1 = require("./polls/polls.service");
-const polls_controller_1 = require("./polls/polls.controller");
-let AppModule = class AppModule {
+const ids_1 = require("../ids");
+let PollService = class PollService {
+    async createPoll(fields) {
+        const pollId = (0, ids_1.createPollId)();
+        const userId = (0, ids_1.createUserId)();
+        return Object.assign(Object.assign({}, fields), { pollId,
+            userId });
+    }
+    ;
+    async joinPoll(fields) {
+        const userId = (0, ids_1.createUserId)();
+        return Object.assign(Object.assign({}, fields), { userId });
+    }
+    async rejoin(fields) {
+        return fields;
+    }
 };
-AppModule = __decorate([
-    (0, common_1.Module)({
-        imports: [config_1.ConfigModule.forRoot(), polls_module_1.pollsModule],
-        controllers: [polls_controller_1.PollsController],
-        providers: [polls_service_1.PollService],
-        exports: []
-    })
-], AppModule);
-exports.AppModule = AppModule;
-//# sourceMappingURL=app.module.js.map
+PollService = __decorate([
+    (0, common_1.Injectable)()
+], PollService);
+exports.PollService = PollService;
+//# sourceMappingURL=polls.service.js.map

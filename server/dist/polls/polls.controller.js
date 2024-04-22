@@ -15,17 +15,27 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PollsController = void 0;
 const common_1 = require("@nestjs/common");
 const dtos_1 = require("./dtos");
+const polls_service_1 = require("./polls.service");
 let PollsController = class PollsController {
+    constructor(pollsService) {
+        this.pollsService = pollsService;
+    }
+    ;
     async create(CreatePollDto) {
-        common_1.Logger.log("In create !!");
-        return CreatePollDto;
+        const result = await this.pollsService.createPoll(CreatePollDto);
+        return result;
     }
     async join(JoinPollDto) {
-        common_1.Logger.log("In join !!");
-        return JoinPollDto;
+        const result = await this.pollsService.joinPoll(JoinPollDto);
+        return result;
     }
     async rejoin() {
-        common_1.Logger.log("In rejoin !!");
+        const result = await this.pollsService.rejoin({
+            name: 'From Token',
+            userID: 'string',
+            pollID: 'Also From Token'
+        });
+        return result;
     }
 };
 __decorate([
@@ -49,7 +59,8 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], PollsController.prototype, "rejoin", null);
 PollsController = __decorate([
-    (0, common_1.Controller)('polls')
+    (0, common_1.Controller)('polls'),
+    __metadata("design:paramtypes", [polls_service_1.PollService])
 ], PollsController);
 exports.PollsController = PollsController;
 //# sourceMappingURL=polls.controller.js.map
