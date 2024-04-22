@@ -1,19 +1,13 @@
 import { CreatePollDto, JoinPollDto } from "./dtos";
-import { PollService } from './polls.service';
+import { PollsService } from './polls.service';
 export declare class PollsController {
     private pollsService;
-    constructor(pollsService: PollService);
+    constructor(pollsService: PollsService);
     create(CreatePollDto: CreatePollDto): Promise<{
-        pollId: string;
-        userId: string;
-        topic: string;
-        votesPerVoter: number;
-        name: string;
+        poll: import("shared").Poll;
     }>;
     join(JoinPollDto: JoinPollDto): Promise<{
-        userId: string;
-        pollID: string;
-        name: string;
+        poll: import("shared").Poll;
     }>;
-    rejoin(): Promise<import("./types").rejoinPollFields>;
+    rejoin(): Promise<import("shared").Poll>;
 }

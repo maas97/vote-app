@@ -1,16 +1,14 @@
 import { CreatePollFields, joinPollFields, rejoinPollFields } from './types';
-export declare class PollService {
+import { PollsRepository } from './polls.repository';
+export declare class PollsService {
+    private readonly pollsRepository;
+    private readonly logger;
+    constructor(pollsRepository: PollsRepository);
     createPoll(fields: CreatePollFields): Promise<{
-        pollId: string;
-        userId: string;
-        topic: string;
-        votesPerVoter: number;
-        name: string;
+        poll: import("shared").Poll;
     }>;
     joinPoll(fields: joinPollFields): Promise<{
-        userId: string;
-        pollID: string;
-        name: string;
+        poll: import("shared").Poll;
     }>;
-    rejoin(fields: rejoinPollFields): Promise<rejoinPollFields>;
+    rejoin(fields: rejoinPollFields): Promise<import("shared").Poll>;
 }

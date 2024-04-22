@@ -1,11 +1,11 @@
 import { Body, Controller, Logger, Post } from "@nestjs/common";
 import { CreatePollDto, JoinPollDto } from "./dtos";
-import { PollService } from './polls.service'
+import { PollsService } from './polls.service'
 
 @Controller('polls') // we write the basic url path here that all methods will have & Nest by default add localhost:port to this path
 export class PollsController {
 
-    constructor(private pollsService: PollService) {};
+    constructor(private pollsService: PollsService) {};
 
     @Post()
     async create(@Body() CreatePollDto: CreatePollDto ){

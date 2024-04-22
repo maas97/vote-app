@@ -60,7 +60,7 @@ __decorate([
 ], PollsController.prototype, "rejoin", null);
 PollsController = __decorate([
     (0, common_1.Controller)('polls'),
-    __metadata("design:paramtypes", [polls_service_1.PollService])
+    __metadata("design:paramtypes", [polls_service_1.PollsService])
 ], PollsController);
 exports.PollsController = PollsController;
 //# sourceMappingURL=polls.controller.js.map

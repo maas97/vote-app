@@ -19,7 +19,7 @@ pollsModule = __decorate([
     (0, common_1.Module)({
         imports: [config_1.ConfigModule, modules_config_1.redisModule],
         controllers: [polls_controller_1.PollsController],
-        providers: [polls_service_1.PollService, polls_repository_1.PollsRepository],
+        providers: [polls_service_1.PollsService, polls_repository_1.PollsRepository],
         exports: []
     })
 ], pollsModule);
