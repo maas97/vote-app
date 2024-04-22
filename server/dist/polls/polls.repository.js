@@ -47,6 +47,36 @@ let PollsRepository = PollsRepository_1 = class PollsRepository {
             throw new common_1.InternalServerErrorException();
         }
     }
+    async getPoll(pollID) {
+        this.logger.log(`Attempting to get poll with: ${pollID}`);
+        const key = `polls:${pollID}`;
+        try {
+            const currentPoll = await this.redisClient.send_command('JSON.GET', key, '.');
+            this.logger.verbose(currentPoll);
+            return JSON.parse(currentPoll);
+        }
+        catch (e) {
+            this.logger.error(`Failed to get pollID ${pollID}`);
+            throw e;
+        }
+    }
+    async AddParticipant({ pollID, userID, name }) {
+        this.logger.log(`
+        Attempting to add a participant with userID/name: ${userID}/${name} to pollID: ${pollID}`);
+        const key = `polls:${pollID}`;
+        const participantPath = `.participants.${userID}`;
+        try {
+            await this.redisClient.send_command('JSON.SET', key, participantPath, JSON.stringify(name));
+            const pollJSON = await this.redisClient.send_command('JSON.GET', key, '.');
+            const poll = JSON.parse(pollJSON);
+            this.logger.debug(`Current Participants for pollID: ${pollID}:`, poll.participants);
+            return poll;
+        }
+        catch (e) {
+            this.logger.error(`Failed to add a participant with userID/name: ${userID}/${name} to pollId: ${pollID}`);
+            throw e;
+        }
+    }
 };
 PollsRepository = PollsRepository_1 = __decorate([
     (0, common_2.Injectable)(),
